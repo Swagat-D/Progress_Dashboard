@@ -1,103 +1,210 @@
-import Image from "next/image";
+"use client"
+
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { ArrowUpRight, Download, Users, BookOpen, Code, Brain, ExternalLink } from "lucide-react"
+import { DistributionPieChart } from "@/components/distribution-pie-chart"
+import { StudentTable } from "@/components/student-table"
+import { RecommendationCard } from "@/components/recommendation-card"
+import { OverallStats } from "@/components/overall-stats"
+import { motion } from "framer-motion"
+import { ScoreHistogram } from "@/components/score-histogram"
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <div className="flex min-h-screen flex-col bg-gradient-to-br from-purple-50 to-indigo-50 dark:from-slate-950 dark:to-purple-950">
+      <header className="sticky top-0 z-10 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="container flex h-16 items-center justify-between">
+          <div className="flex items-center gap-2">
+            <BookOpen className="h-6 w-6 text-purple-600" />
+            <h1 className="text-xl font-bold">Student Progress Dashboard</h1>
+          </div>
+          <Button
+            variant="outline"
+            onClick={() => window.open("https://docs.google.com/spreadsheets/d/your-spreadsheet-id", "_blank")}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            <ExternalLink className="mr-2 h-4 w-4" />
+            Open Spreadsheet
+          </Button>
         </div>
+      </header>
+
+      <main className="container flex-1 py-6">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="grid gap-6"
+        >
+          <OverallStats />
+
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.2, duration: 0.5 }}
+              className="col-span-1"
+            >
+              <Card className="h-full">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Users className="h-5 w-5 text-purple-500" />
+                    Score Distribution
+                  </CardTitle>
+                  <CardDescription>Distribution of students across score ranges</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <DistributionPieChart />
+                </CardContent>
+              </Card>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.3, duration: 0.5 }}
+              className="col-span-1 lg:col-span-2"
+            >
+              <Card className="h-full">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Brain className="h-5 w-5 text-purple-500" />
+                    Score Distribution Analysis
+                  </CardTitle>
+                  <CardDescription>
+                    Clear visualization of how students are distributed across different score ranges
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ScoreHistogram />
+                </CardContent>
+              </Card>
+            </motion.div>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-2">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5, duration: 0.5 }}
+            >
+              <Card className="h-full">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Code className="h-5 w-5 text-green-600" />
+                    GeeksforGeeks LMS Progress
+                  </CardTitle>
+                  <CardDescription>Track student progress on GeeksforGeeks learning platform</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="text-sm text-muted-foreground">
+                    <p>Monitor student engagement and completion rates on:</p>
+                    <ul className="mt-2 space-y-1 list-disc list-inside">
+                      <li>Practice problems solved</li>
+                      <li>Course completion percentage</li>
+                      <li>Contest participation</li>
+                      <li>Skill assessments</li>
+                    </ul>
+                  </div>
+                  <div className="pt-2">
+                    <Button
+                      className="w-full"
+                      onClick={() =>
+                        window.open("https://docs.google.com/spreadsheets/d/your-gfg-spreadsheet-id", "_blank")
+                      }
+                    >
+                      <ExternalLink className="mr-2 h-4 w-4" />
+                      View GFG Progress Report
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6, duration: 0.5 }}
+            >
+              <Card className="h-full">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <BookOpen className="h-5 w-5 text-purple-500" />
+                    Assessment Data
+                  </CardTitle>
+                  <CardDescription>Complete student assessment records and analytics</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="text-sm text-muted-foreground">
+                    <p>Access comprehensive data including:</p>
+                    <ul className="mt-2 space-y-1 list-disc list-inside">
+                      <li>Individual student scores</li>
+                      <li>Performance trends</li>
+                      <li>Detailed analytics</li>
+                      <li>Exportable reports</li>
+                    </ul>
+                  </div>
+                  <div className="pt-2">
+                    <Button
+                      variant="outline"
+                      className="w-full"
+                      onClick={() =>
+                        window.open("https://docs.google.com/spreadsheets/d/your-assessment-spreadsheet-id", "_blank")
+                      }
+                    >
+                      <ExternalLink className="mr-2 h-4 w-4" />
+                      View Assessment Spreadsheet
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </div>
+
+          <Tabs defaultValue="table" className="w-full">
+            <TabsList className="grid w-full max-w-md grid-cols-2">
+              <TabsTrigger value="table">Student Data</TabsTrigger>
+              <TabsTrigger value="recommendations">Recommendations</TabsTrigger>
+            </TabsList>
+            <TabsContent value="table" className="mt-4">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Student Performance Data</CardTitle>
+                  <CardDescription>Detailed view of all student scores and performance metrics</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <StudentTable />
+                </CardContent>
+                <CardFooter className="flex justify-between">
+                  <Button variant="outline">
+                    <Download className="mr-2 h-4 w-4" />
+                    Export Data
+                  </Button>
+                  <Button
+                    onClick={() => window.open("https://docs.google.com/spreadsheets/d/your-spreadsheet-id", "_blank")}
+                  >
+                    View Full Spreadsheet
+                    <ArrowUpRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </CardFooter>
+              </Card>
+            </TabsContent>
+            <TabsContent value="recommendations" className="mt-4">
+              <RecommendationCard />
+            </TabsContent>
+          </Tabs>
+        </motion.div>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+
+      <footer className="border-t py-4">
+        <div className="container flex flex-col items-center justify-between gap-4 md:flex-row">
+          <p className="text-sm text-muted-foreground">
+            © {new Date().getFullYear()} Student Progress Dashboard. All rights reserved.
+          </p>
+          <p className="text-sm text-muted-foreground">Updated: {new Date().toLocaleDateString()}</p>
+        </div>
       </footer>
     </div>
-  );
+  )
 }
