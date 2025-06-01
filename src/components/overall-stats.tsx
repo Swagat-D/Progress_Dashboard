@@ -48,7 +48,7 @@ export function OverallStats() {
   ]
 
   return (
-    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+    <div className="grid gap-3 sm:gap-4 grid-cols-2 lg:grid-cols-4">
       {stats.map((stat, index) => (
         <motion.div
           key={stat.title}
@@ -57,18 +57,18 @@ export function OverallStats() {
           transition={{ duration: 0.3, delay: index * 0.1 }}
         >
           <Card>
-            <CardContent className="flex flex-row items-center justify-between p-6">
+            <CardContent className="flex flex-row items-center justify-between p-4 sm:p-6">
               <div className="space-y-1">
-                <p className="text-sm font-medium text-muted-foreground">{stat.title}</p>
+                <p className="text-xs sm:text-sm font-medium text-muted-foreground truncate">{stat.title}</p>
                 <div className="flex items-baseline">
-                  <h2 className="text-3xl font-bold tracking-tight">
+                  <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight">
                     {stat.value}
-                    {stat.suffix || ""}
+                    {stat.suffix && <span className="text-sm sm:text-base lg:text-lg">{stat.suffix}</span>}
                   </h2>
                 </div>
               </div>
-              <div className={`rounded-full p-2 ${stat.color}`}>
-                <stat.icon className="h-5 w-5" />
+              <div className={`rounded-full p-1.5 sm:p-2 ${stat.color}`}>
+                <stat.icon className="h-4 w-4 sm:h-5 sm:w-5" />
               </div>
             </CardContent>
           </Card>

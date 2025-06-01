@@ -39,39 +39,45 @@ export function ScoreHistogram() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5, delay: 0.3 }}
-      className="h-[300px] w-full"
+      className="h-[280px] w-full"
     >
       <div className="mb-4 text-center">
-        <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300">Student Distribution by Total Score</h3>
-        <p className="text-sm text-gray-500 dark:text-gray-400">
-          This chart shows how many students achieved scores in each range (Aptitude + Coding combined)
+        <h3 className="text-base font-semibold text-foreground">Student Distribution by Total Score</h3>
+        <p className="text-xs text-muted-foreground mt-1">
+          Number of students in each score range (Aptitude + Coding combined)
         </p>
       </div>
       <ResponsiveContainer width="100%" height="100%">
         <BarChart
           data={data}
           margin={{
-            top: 20,
-            right: 30,
-            left: 20,
-            bottom: 5,
+            top: 10,
+            right: 10,
+            left: 10,
+            bottom: 20,
           }}
         >
-          <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
+          <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" opacity={0.3} />
           <XAxis
             dataKey="range"
-            tick={{ fontSize: 12 }}
-            label={{ value: "Score Range", position: "insideBottom", offset: -5 }}
+            tick={{ fontSize: 11, fill: "hsl(var(--foreground))" }}
+            axisLine={{ stroke: "hsl(var(--border))" }}
+            tickLine={{ stroke: "hsl(var(--border))" }}
           />
-          <YAxis tick={{ fontSize: 12 }} label={{ value: "Number of Students", angle: -90, position: "insideLeft" }} />
+          <YAxis
+            tick={{ fontSize: 11, fill: "hsl(var(--foreground))" }}
+            axisLine={{ stroke: "hsl(var(--border))" }}
+            tickLine={{ stroke: "hsl(var(--border))" }}
+          />
           <Tooltip
             formatter={(value: number) => [`${value} students`, "Count"]}
             labelFormatter={(label) => `Score Range: ${label}`}
             contentStyle={{
-              backgroundColor: "rgba(255, 255, 255, 0.9)",
+              backgroundColor: "hsl(var(--background))",
               borderRadius: "0.5rem",
-              border: "1px solid #e2e8f0",
+              border: "1px solid hsl(var(--border))",
               boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
+              color: "hsl(var(--foreground))",
             }}
           />
           <Bar dataKey="count" name="Students" radius={[4, 4, 0, 0]} animationDuration={1500}>

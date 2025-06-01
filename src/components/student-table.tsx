@@ -88,13 +88,13 @@ export function StudentTable() {
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center gap-4">
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-4">
         <div className="relative flex-1">
           <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
           <Input
             type="search"
             placeholder="Search by registration number or score..."
-            className="pl-8"
+            className="pl-8 text-sm"
             value={searchTerm}
             onChange={(e) => {
               setSearchTerm(e.target.value)
@@ -102,34 +102,36 @@ export function StudentTable() {
             }}
           />
         </div>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline">
-              Sort by
-              <ChevronDown className="ml-2 h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem onClick={() => handleSortChange("reg")}>Registration Number</DropdownMenuItem>
-            <DropdownMenuItem onClick={() => handleSortChange("aptitude")}>Aptitude Score</DropdownMenuItem>
-            <DropdownMenuItem onClick={() => handleSortChange("coding")}>Coding Score</DropdownMenuItem>
-            <DropdownMenuItem onClick={() => handleSortChange("total")}>Total Score</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-        <Button variant="ghost" size="icon" onClick={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}>
-          {sortOrder === "asc" ? "↑" : "↓"}
-        </Button>
+        <div className="flex gap-2">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" size="sm" className="text-xs sm:text-sm">
+                Sort by
+                <ChevronDown className="ml-2 h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem onClick={() => handleSortChange("reg")}>Registration Number</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => handleSortChange("aptitude")}>Aptitude Score</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => handleSortChange("coding")}>Coding Score</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => handleSortChange("total")}>Total Score</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+          <Button variant="ghost" size="sm" onClick={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}>
+            {sortOrder === "asc" ? "↑" : "↓"}
+          </Button>
+        </div>
       </div>
 
-      <div className="rounded-md border">
+      <div className="rounded-md border overflow-x-auto">
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Reg. Number</TableHead>
-              <TableHead className="text-right">Aptitude (300)</TableHead>
-              <TableHead className="text-right">Coding (50)</TableHead>
-              <TableHead className="text-right">Total (350)</TableHead>
-              <TableHead>Performance</TableHead>
+              <TableHead className="text-xs sm:text-sm">Reg. Number</TableHead>
+              <TableHead className="text-right text-xs sm:text-sm">Aptitude (300)</TableHead>
+              <TableHead className="text-right text-xs sm:text-sm">Coding (50)</TableHead>
+              <TableHead className="text-right text-xs sm:text-sm">Total (350)</TableHead>
+              <TableHead className="text-xs sm:text-sm">Performance</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -139,12 +141,12 @@ export function StudentTable() {
 
               return (
                 <TableRow key={student.reg}>
-                  <TableCell className="font-medium">{student.reg}</TableCell>
-                  <TableCell className="text-right">{student.aptitude}</TableCell>
-                  <TableCell className="text-right">{student.coding}</TableCell>
-                  <TableCell className="text-right font-semibold">{total}</TableCell>
+                  <TableCell className="font-medium text-xs sm:text-sm">{student.reg}</TableCell>
+                  <TableCell className="text-right text-xs sm:text-sm">{student.aptitude}</TableCell>
+                  <TableCell className="text-right text-xs sm:text-sm">{student.coding}</TableCell>
+                  <TableCell className="text-right font-semibold text-xs sm:text-sm">{total}</TableCell>
                   <TableCell>
-                    <Badge variant="outline" className={`${performance.color} text-white`}>
+                    <Badge variant="outline" className={`${performance.color} text-white text-xs`}>
                       {performance.label}
                     </Badge>
                   </TableCell>
@@ -156,13 +158,15 @@ export function StudentTable() {
       </div>
 
       {paginatedData.length === 0 && (
-        <div className="py-12 text-center text-muted-foreground">No results found. Try a different search term.</div>
+        <div className="py-8 sm:py-12 text-center text-muted-foreground text-sm">
+          No results found. Try a different search term.
+        </div>
       )}
 
       {/* Pagination Controls */}
       {totalPages > 1 && (
-        <div className="flex items-center justify-between">
-          <div className="text-sm text-muted-foreground">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-0">
+          <div className="text-xs sm:text-sm text-muted-foreground text-center sm:text-left">
             Showing {currentPage * itemsPerPage + 1} to{" "}
             {Math.min((currentPage + 1) * itemsPerPage, filteredData.length)} of {filteredData.length} students
           </div>
@@ -172,11 +176,12 @@ export function StudentTable() {
               size="sm"
               onClick={() => setCurrentPage(currentPage - 1)}
               disabled={currentPage === 0}
+              className="text-xs sm:text-sm"
             >
-              <ChevronLeft className="h-4 w-4 mr-1" />
+              <ChevronLeft className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
               Previous
             </Button>
-            <span className="text-sm text-muted-foreground">
+            <span className="text-xs sm:text-sm text-muted-foreground px-2">
               Page {currentPage + 1} of {totalPages}
             </span>
             <Button
@@ -184,9 +189,10 @@ export function StudentTable() {
               size="sm"
               onClick={() => setCurrentPage(currentPage + 1)}
               disabled={currentPage === totalPages - 1}
+              className="text-xs sm:text-sm"
             >
               Next
-              <ChevronRight className="h-4 w-4 ml-1" />
+              <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4 ml-1" />
             </Button>
           </div>
         </div>

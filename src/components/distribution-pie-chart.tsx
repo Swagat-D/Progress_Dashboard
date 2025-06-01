@@ -32,7 +32,7 @@ export function DistributionPieChart() {
 
   const data = calculateDistribution()
 
-  const onPieEnter = (_: React.MouseEvent<SVGElement, MouseEvent>, index: number) => {
+  const onPieEnter = (_: unknown, index: number) => {
     setActiveIndex(index)
   }
 
@@ -45,7 +45,7 @@ export function DistributionPieChart() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="h-[300px] w-full"
+      className="h-[250px] sm:h-[300px] w-full"
     >
       <ResponsiveContainer width="100%" height="100%">
         <PieChart>
@@ -53,8 +53,8 @@ export function DistributionPieChart() {
             data={data}
             cx="50%"
             cy="50%"
-            innerRadius={60}
-            outerRadius={80}
+            innerRadius={40}
+            outerRadius={70}
             paddingAngle={5}
             dataKey="value"
             onMouseEnter={onPieEnter}
@@ -75,13 +75,20 @@ export function DistributionPieChart() {
           <Tooltip
             formatter={(value: number) => [`${value} students`, "Count"]}
             contentStyle={{
-              backgroundColor: "rgba(255, 255, 255, 0.9)",
+              backgroundColor: "hsl(var(--background))",
               borderRadius: "0.5rem",
-              border: "1px solid #e2e8f0",
+              border: "1px solid hsl(var(--border))",
               boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
+              color: "hsl(var(--foreground))",
+              fontSize: "12px",
             }}
           />
-          <Legend verticalAlign="bottom" height={36} formatter={(value) => <span className="text-sm">{value}</span>} />
+          <Legend
+            verticalAlign="bottom"
+            height={36}
+            formatter={(value) => <span className="text-xs sm:text-sm">{value}</span>}
+            wrapperStyle={{ fontSize: "12px" }}
+          />
         </PieChart>
       </ResponsiveContainer>
     </motion.div>
