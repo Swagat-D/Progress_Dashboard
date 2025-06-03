@@ -27,21 +27,7 @@ export function StudentTable() {
       let valueA, valueB
 
       switch (sortBy) {
-        case "reg":
-          // Convert registration numbers to numbers for proper sorting, handling ECE prefixes
-          valueA =
-            typeof a.reg === "string" && a.reg.includes("ECE")
-              ? Number.parseInt(a.reg.replace("ECE ", ""))
-              : typeof a.reg === "string"
-                ? Number.parseInt(a.reg)
-                : a.reg
-          valueB =
-            typeof b.reg === "string" && b.reg.includes("ECE")
-              ? Number.parseInt(b.reg.replace("ECE ", ""))
-              : typeof b.reg === "string"
-                ? Number.parseInt(b.reg)
-                : b.reg
-          break
+       
         case "aptitude":
           valueA = a.aptitude
           valueB = b.aptitude
@@ -123,38 +109,76 @@ export function StudentTable() {
         </div>
       </div>
 
-      <div className="rounded-md border overflow-x-auto">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead className="text-xs sm:text-sm">Reg. Number</TableHead>
-              <TableHead className="text-right text-xs sm:text-sm">Aptitude (300)</TableHead>
-              <TableHead className="text-right text-xs sm:text-sm">Coding (50)</TableHead>
-              <TableHead className="text-right text-xs sm:text-sm">Total (350)</TableHead>
-              <TableHead className="text-xs sm:text-sm">Performance</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {paginatedData.map((student) => {
-              const total = student.aptitude + student.coding
-              const performance = getPerformanceCategory(total)
+      {/* Desktop Table View */}
+      <div className="hidden sm:block rounded-md border overflow-hidden">
+        <div className="overflow-x-auto">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead className="text-sm whitespace-nowrap">Reg. Number</TableHead>
+                <TableHead className="text-right text-sm whitespace-nowrap">Aptitude (300)</TableHead>
+                <TableHead className="text-right text-sm whitespace-nowrap">Coding (50)</TableHead>
+                <TableHead className="text-right text-sm whitespace-nowrap">Total (350)</TableHead>
+                <TableHead className="text-sm whitespace-nowrap">Performance</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {paginatedData.map((student) => {
+                const total = student.aptitude + student.coding
+                const performance = getPerformanceCategory(total)
 
-              return (
-                <TableRow key={student.reg}>
-                  <TableCell className="font-medium text-xs sm:text-sm">{student.reg}</TableCell>
-                  <TableCell className="text-right text-xs sm:text-sm">{student.aptitude}</TableCell>
-                  <TableCell className="text-right text-xs sm:text-sm">{student.coding}</TableCell>
-                  <TableCell className="text-right font-semibold text-xs sm:text-sm">{total}</TableCell>
-                  <TableCell>
-                    <Badge variant="outline" className={`${performance.color} text-white text-xs`}>
-                      {performance.label}
-                    </Badge>
-                  </TableCell>
-                </TableRow>
-              )
-            })}
-          </TableBody>
-        </Table>
+                return (
+                  <TableRow key={student.reg}>
+                    <TableCell className="font-medium text-sm">{student.reg}</TableCell>
+                    <TableCell className="text-right text-sm">{student.aptitude}</TableCell>
+                    <TableCell className="text-right text-sm">{student.coding}</TableCell>
+                    <TableCell className="text-right font-semibold text-sm">{total}</TableCell>
+                    <TableCell>
+                      <Badge variant="outline" className={`${performance.color} text-white text-xs`}>
+                        {performance.label}
+                      </Badge>
+                    </TableCell>
+                  </TableRow>
+                )
+              })}
+            </TableBody>
+          </Table>
+        </div>
+      </div>
+
+      {/* Mobile Card View */}
+      <div className="sm:hidden space-y-3">
+        {paginatedData.map((student) => {
+          const total = student.aptitude + student.coding
+          const performance = getPerformanceCategory(total)
+
+          return (
+            <div key={student.reg} className="border rounded-lg p-4 space-y-3">
+              <div className="flex justify-between items-start">
+                <div>
+                  <div className="font-medium text-sm">Reg: {student.reg}</div>
+                  <div className="text-xs text-muted-foreground mt-1">
+                    Total Score: <span className="font-semibold text-foreground">{total}/350</span>
+                  </div>
+                </div>
+                <Badge variant="outline" className={`${performance.color} text-white text-xs`}>
+                  {performance.label}
+                </Badge>
+              </div>
+              
+              <div className="grid grid-cols-2 gap-4 text-sm">
+                <div className="space-y-1">
+                  <div className="text-xs text-muted-foreground">Aptitude</div>
+                  <div className="font-medium">{student.aptitude}/300</div>
+                </div>
+                <div className="space-y-1">
+                  <div className="text-xs text-muted-foreground">Coding</div>
+                  <div className="font-medium">{student.coding}/50</div>
+                </div>
+              </div>
+            </div>
+          )
+        })}
       </div>
 
       {paginatedData.length === 0 && (

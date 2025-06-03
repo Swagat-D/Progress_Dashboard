@@ -3,8 +3,12 @@
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis, Cell } from "recharts"
 import { studentData } from "@/lib/data"
 import { motion } from "framer-motion"
+import { useTheme } from "next-themes"
 
 export function ScoreHistogram() {
+  const { theme, resolvedTheme } = useTheme()
+  const isDark = theme === 'dark' || resolvedTheme === 'dark'
+
   // Process data for the histogram - this shows how many students fall into each score range
   const processData = () => {
     // Define clear score ranges for better understanding
@@ -34,12 +38,17 @@ export function ScoreHistogram() {
 
   const data = processData()
 
+  // Dynamic colors based on theme
+  const textColor = isDark ? '#e2e8f0' : '#1e293b'
+  const borderColor = isDark ? '#374151' : '#d1d5db'
+  const gridColor = isDark ? '#374151' : '#e5e7eb'
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5, delay: 0.3 }}
-      className="h-[280px] w-full"
+      className="h-[300px] w-full"
     >
       <div className="mb-4 text-center">
         <h3 className="text-base font-semibold text-foreground">Student Distribution by Total Score</h3>
@@ -51,38 +60,93 @@ export function ScoreHistogram() {
         <BarChart
           data={data}
           margin={{
-            top: 10,
-            right: 10,
-            left: 10,
-            bottom: 20,
+            top: 20,
+            right: 20,
+            left: 20,
+            bottom: 40,
           }}
+          barCategoryGap="20%"
         >
-          <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" opacity={0.3} />
+          <CartesianGrid 
+            strokeDasharray="3 3" 
+            stroke={gridColor} 
+            opacity={0.5}
+            horizontal={true}
+            vertical={false}
+          />
           <XAxis
             dataKey="range"
-            tick={{ fontSize: 11, fill: "hsl(var(--foreground))" }}
-            axisLine={{ stroke: "hsl(var(--border))" }}
-            tickLine={{ stroke: "hsl(var(--border))" }}
+            tick={{ 
+              fontSize: 12, 
+              fill: textColor,
+              fontWeight: 500
+            }}
+            axisLine={{ 
+              stroke: borderColor,
+              strokeWidth: 1
+            }}
+            tickLine={{ 
+              stroke: borderColor,
+              strokeWidth: 1
+            }}
+            interval={0}
+            angle={-45}
+            textAnchor="end"
+            height={60}
           />
           <YAxis
-            tick={{ fontSize: 11, fill: "hsl(var(--foreground))" }}
-            axisLine={{ stroke: "hsl(var(--border))" }}
-            tickLine={{ stroke: "hsl(var(--border))" }}
+            tick={{ 
+              fontSize: 12, 
+              fill: textColor,
+              fontWeight: 500
+            }}
+            axisLine={{ 
+              stroke: borderColor,
+              strokeWidth: 1
+            }}
+            tickLine={{ 
+              stroke: borderColor,
+              strokeWidth: 1
+            }}
+            label={{ 
+              value: 'Number of Students', 
+              angle: -90, 
+              position: 'insideLeft',
+              style: { 
+                textAnchor: 'middle',
+                fill: textColor,
+                fontSize: '12px',
+                fontWeight: 500
+              }
+            }}
           />
           <Tooltip
             formatter={(value: number) => [`${value} students`, "Count"]}
             labelFormatter={(label) => `Score Range: ${label}`}
             contentStyle={{
-              backgroundColor: "hsl(var(--background))",
-              borderRadius: "0.5rem",
-              border: "1px solid hsl(var(--border))",
-              boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
-              color: "hsl(var(--foreground))",
+              backgroundColor: isDark ? '#1f2937' : '#ffffff',
+              borderRadius: '0.5rem',
+              border: `1px solid ${borderColor}`,
+              boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+              color: textColor,
+              fontSize: '12px'
             }}
+            cursor={{ fill: isDark ? 'rgba(55, 65, 81, 0.1)' : 'rgba(0, 0, 0, 0.05)' }}
           />
-          <Bar dataKey="count" name="Students" radius={[4, 4, 0, 0]} animationDuration={1500}>
+          <Bar 
+            dataKey="count" 
+            name="Students" 
+            radius={[4, 4, 0, 0]} 
+            animationDuration={1500}
+            maxBarSize={60}
+          >
             {data.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={entry.color} />
+              <Cell 
+                key={`cell-${index}`} 
+                fill={entry.color}
+                stroke={isDark ? '#1f2937' : '#ffffff'}
+                strokeWidth={1}
+              />
             ))}
           </Bar>
         </BarChart>

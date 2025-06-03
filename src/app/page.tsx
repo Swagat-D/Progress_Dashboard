@@ -125,12 +125,18 @@ export default function Home() {
                     <Button
                       className="w-full text-xs sm:text-sm"
                       size="sm"
-                      onClick={() =>
-                        window.open("https://docs.google.com/spreadsheets/d/your-gfg-spreadsheet-id", "_blank")
+                      onClick={() => {
+                        const link = document.createElement('a');
+            link.href = '/gfg-progress-report.csv';
+            link.download = 'gfg-progress-report.csv';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+          }
                       }
                     >
-                      <ExternalLink className="mr-2 h-3 w-3 sm:h-4 sm:w-4" />
-                      View GFG Progress Report
+                      <Download className="mr-2 h-3 w-3 sm:h-4 sm:w-4" />
+          Download GFG Progress CSV
                     </Button>
                   </div>
                 </CardContent>
@@ -157,8 +163,8 @@ export default function Home() {
                     <p>Access comprehensive data including:</p>
                     <ul className="mt-2 space-y-1 list-disc list-inside text-xs">
                       <li>Individual student scores</li>
-                      <li>Performance trends</li>
-                      <li>Detailed analytics</li>
+                      <li>Aptitude Score</li>
+                      <li>Coding Score</li>
                       <li>Exportable reports</li>
                     </ul>
                   </div>
@@ -201,10 +207,7 @@ export default function Home() {
                   <StudentTable />
                 </CardContent>
                 <CardFooter className="flex flex-col sm:flex-row gap-2 sm:gap-0 sm:justify-between pt-4">
-                  <Button variant="outline" size="sm" className="w-full sm:w-auto text-xs sm:text-sm">
-                    <Download className="mr-2 h-3 w-3 sm:h-4 sm:w-4" />
-                    Export Data
-                  </Button>
+                 
                   <Button
                     size="sm"
                     className="w-full sm:w-auto text-xs sm:text-sm"

@@ -4,9 +4,16 @@ import { useState } from "react"
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from "recharts"
 import { studentData } from "@/lib/data"
 import { motion } from "framer-motion"
+import { useTheme } from "next-themes"
 
 export function DistributionPieChart() {
   const [activeIndex, setActiveIndex] = useState<number | null>(null)
+
+  const { theme, resolvedTheme } = useTheme()
+const isDark = theme === 'dark' || resolvedTheme === 'dark'
+
+const textColor = isDark ? '#e2e8f0' : '#1e293b'
+const borderColor = isDark ? '#374151' : '#d1d5db'
 
   // Calculate score ranges
   const calculateDistribution = () => {
@@ -75,18 +82,18 @@ export function DistributionPieChart() {
           <Tooltip
             formatter={(value: number) => [`${value} students`, "Count"]}
             contentStyle={{
-              backgroundColor: "hsl(var(--background))",
+              backgroundColor: isDark ? '#1f2937' : '#ffffff',
               borderRadius: "0.5rem",
-              border: "1px solid hsl(var(--border))",
+              border: `1px solid ${borderColor}`,
               boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
-              color: "hsl(var(--foreground))",
+              color: textColor,
               fontSize: "12px",
             }}
           />
           <Legend
             verticalAlign="bottom"
             height={36}
-            formatter={(value) => <span className="text-xs sm:text-sm">{value}</span>}
+            formatter={(value) => <span className="text-xs sm:text-sm" style={{color: textColor}}>{value}</span>}
             wrapperStyle={{ fontSize: "12px" }}
           />
         </PieChart>
