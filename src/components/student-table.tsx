@@ -27,7 +27,10 @@ export function StudentTable() {
       let valueA, valueB
 
       switch (sortBy) {
-       
+        case "reg":
+          valueA = a.reg
+          valueB = b.reg
+          break
         case "aptitude":
           valueA = a.aptitude
           valueB = b.aptitude
@@ -91,10 +94,7 @@ export function StudentTable() {
         <div className="flex gap-2">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="sm" className="text-xs sm:text-sm">
-                Sort by
-                <ChevronDown className="ml-2 h-4 w-4" />
-              </Button>
+              
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuItem onClick={() => handleSortChange("reg")}>Registration Number</DropdownMenuItem>

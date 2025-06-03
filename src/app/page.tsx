@@ -15,30 +15,52 @@ export default function Home() {
   return (
     <div className="flex min-h-screen flex-col bg-gradient-to-br from-purple-50 to-indigo-50 dark:from-slate-950 dark:to-purple-950">
       <header className="sticky top-0 z-10 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-14 sm:h-16 items-center justify-between px-4 sm:px-6">
-          <div className="flex items-center gap-2">
-            <BookOpen className="h-5 w-5 sm:h-6 sm:w-6 text-purple-600" />
-            <h1 className="text-lg sm:text-xl font-bold truncate">Student Progress Dashboard</h1>
-          </div>
-          <Button
-            variant="outline"
-            size="sm"
-            className="hidden sm:flex"
-            onClick={() => window.open("https://docs.google.com/spreadsheets/d/your-spreadsheet-id", "_blank")}
-          >
-            <ExternalLink className="mr-2 h-4 w-4" />
-            Open Spreadsheet
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            className="sm:hidden"
-            onClick={() => window.open("https://docs.google.com/spreadsheets/d/your-spreadsheet-id", "_blank")}
-          >
-            <ExternalLink className="h-4 w-4" />
-          </Button>
-        </div>
-      </header>
+  <div className="container flex h-14 sm:h-16 items-center justify-between px-4 sm:px-6">
+    <div className="flex items-center gap-2">
+      <motion.div
+        whileHover={{ scale: 1.1, rotate: 5 }}
+        transition={{ type: "spring", stiffness: 400, damping: 10 }}
+      >
+        <BookOpen className="h-5 w-5 sm:h-6 sm:w-6 text-purple-600" />
+      </motion.div>
+      <h1 className="text-lg sm:text-xl font-bold truncate">Student Progress Dashboard</h1>
+    </div>
+    <div className="flex items-center gap-2">
+      <motion.div
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+      >
+      </motion.div>
+      <motion.div
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+      >
+        <Button
+          variant="outline"
+          size="sm"
+          className="hidden sm:flex hover:bg-purple-50 hover:border-purple-200 transition-colors duration-200"
+          onClick={() => window.open("https://docs.google.com/spreadsheets/d/1ImZkz90Ymb0wUbY2KV2fLV2pN6Jy8IH0cbhds4WDN7o/edit?gid=0#gid=0", "_blank")}
+        >
+          <ExternalLink className="mr-2 h-4 w-4" />
+          Open Spreadsheet
+        </Button>
+      </motion.div>
+      <motion.div
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+      >
+        <Button
+          variant="outline"
+          size="sm"
+          className="sm:hidden hover:bg-purple-50 hover:border-purple-200 transition-colors duration-200"
+          onClick={() => window.open("https://docs.google.com/spreadsheets/d/1ImZkz90Ymb0wUbY2KV2fLV2pN6Jy8IH0cbhds4WDN7o/edit?gid=0#gid=0", "_blank")}
+        >
+          <ExternalLink className="h-4 w-4" />
+        </Button>
+      </motion.div>
+    </div>
+  </div>
+</header>
 
       <main className="container flex-1 py-4 sm:py-6 px-4 sm:px-6">
         <motion.div
@@ -53,13 +75,26 @@ export default function Home() {
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.2, duration: 0.5 }}
+              whileHover={{ 
+                scale: 1.02,
+                boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
+              }}
+              transition={{ 
+                delay: 0.2, 
+                duration: 0.5,
+                hover: { duration: 0.2 }
+              }}
               className="lg:col-span-1"
             >
-              <Card className="h-full">
+              <Card className="h-full hover:border-purple-200 transition-all duration-300 cursor-pointer group">
                 <CardHeader className="pb-4">
-                  <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-                    <Users className="h-4 w-4 sm:h-5 sm:w-5 text-purple-500" />
+                  <CardTitle className="flex items-center gap-2 text-base sm:text-lg group-hover:text-purple-600 transition-colors duration-200">
+                    <motion.div
+                      whileHover={{ rotate: 10 }}
+                      transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                    >
+                      <Users className="h-4 w-4 sm:h-5 sm:w-5 text-purple-500" />
+                    </motion.div>
                     Score Distribution
                   </CardTitle>
                   <CardDescription className="text-xs sm:text-sm">
@@ -75,13 +110,26 @@ export default function Home() {
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.3, duration: 0.5 }}
+              whileHover={{ 
+                scale: 1.02,
+                boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
+              }}
+              transition={{ 
+                delay: 0.3, 
+                duration: 0.5,
+                hover: { duration: 0.2 }
+              }}
               className="lg:col-span-2"
             >
-              <Card className="h-full">
+              <Card className="h-full hover:border-purple-200 transition-all duration-300 cursor-pointer group">
                 <CardHeader className="pb-4">
-                  <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-                    <Brain className="h-4 w-4 sm:h-5 sm:w-5 text-purple-500" />
+                  <CardTitle className="flex items-center gap-2 text-base sm:text-lg group-hover:text-purple-600 transition-colors duration-200">
+                    <motion.div
+                      whileHover={{ rotate: 15 }}
+                      transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                    >
+                      <Brain className="h-4 w-4 sm:h-5 sm:w-5 text-purple-500" />
+                    </motion.div>
                     Score Distribution Analysis
                   </CardTitle>
                   <CardDescription className="text-xs sm:text-sm">
@@ -99,12 +147,25 @@ export default function Home() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5, duration: 0.5 }}
+              whileHover={{ 
+                scale: 1.02,
+                boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
+              }}
+              transition={{ 
+                delay: 0.5, 
+                duration: 0.5,
+                hover: { duration: 0.2 }
+              }}
             >
-              <Card className="h-full">
+              <Card className="h-full hover:border-green-200 transition-all duration-300 cursor-pointer group">
                 <CardHeader className="pb-4">
-                  <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-                    <Code className="h-4 w-4 sm:h-5 sm:w-5 text-green-600" />
+                  <CardTitle className="flex items-center gap-2 text-base sm:text-lg group-hover:text-green-600 transition-colors duration-200">
+                    <motion.div
+                      whileHover={{ scale: 1.2, rotate: 5 }}
+                      transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                    >
+                      <Code className="h-4 w-4 sm:h-5 sm:w-5 text-green-600" />
+                    </motion.div>
                     GeeksforGeeks LMS Progress
                   </CardTitle>
                   <CardDescription className="text-xs sm:text-sm">
@@ -122,22 +183,26 @@ export default function Home() {
                     </ul>
                   </div>
                   <div className="pt-2">
-                    <Button
-                      className="w-full text-xs sm:text-sm"
-                      size="sm"
-                      onClick={() => {
-                        const link = document.createElement('a');
-            link.href = '/gfg-progress-report.csv';
-            link.download = 'gfg-progress-report.csv';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-          }
-                      }
+                    <motion.div
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
                     >
-                      <Download className="mr-2 h-3 w-3 sm:h-4 sm:w-4" />
-          Download GFG Progress CSV
-                    </Button>
+                      <Button
+                        className="w-full text-xs sm:text-sm hover:bg-green-600 transition-colors duration-200"
+                        size="sm"
+                        onClick={() => {
+                          const link = document.createElement('a');
+                          link.href = '/gfg-progress-report.csv';
+                          link.download = 'gfg-progress-report.csv';
+                          document.body.appendChild(link);
+                          link.click();
+                          document.body.removeChild(link);
+                        }}
+                      >
+                        <Download className="mr-2 h-3 w-3 sm:h-4 sm:w-4" />
+                        Download GFG Progress CSV
+                      </Button>
+                    </motion.div>
                   </div>
                 </CardContent>
               </Card>
@@ -146,12 +211,25 @@ export default function Home() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6, duration: 0.5 }}
+              whileHover={{ 
+                scale: 1.02,
+                boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
+              }}
+              transition={{ 
+                delay: 0.6, 
+                duration: 0.5,
+                hover: { duration: 0.2 }
+              }}
             >
-              <Card className="h-full">
+              <Card className="h-full hover:border-purple-200 transition-all duration-300 cursor-pointer group">
                 <CardHeader className="pb-4">
-                  <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-                    <BookOpen className="h-4 w-4 sm:h-5 sm:w-5 text-purple-500" />
+                  <CardTitle className="flex items-center gap-2 text-base sm:text-lg group-hover:text-purple-600 transition-colors duration-200">
+                    <motion.div
+                      whileHover={{ scale: 1.2, rotate: -5 }}
+                      transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                    >
+                      <BookOpen className="h-4 w-4 sm:h-5 sm:w-5 text-purple-500" />
+                    </motion.div>
                     Assessment Data
                   </CardTitle>
                   <CardDescription className="text-xs sm:text-sm">
@@ -169,60 +247,93 @@ export default function Home() {
                     </ul>
                   </div>
                   <div className="pt-2">
-                    <Button
-                      variant="outline"
-                      className="w-full text-xs sm:text-sm"
-                      size="sm"
-                      onClick={() =>
-                        window.open("https://docs.google.com/spreadsheets/d/your-assessment-spreadsheet-id", "_blank")
-                      }
+                    <motion.div
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
                     >
-                      <ExternalLink className="mr-2 h-3 w-3 sm:h-4 sm:w-4" />
-                      View Assessment Spreadsheet
-                    </Button>
+                      <Button
+                        variant="outline"
+                        className="w-full text-xs sm:text-sm hover:bg-purple-50 hover:border-purple-200 hover:text-purple-600 transition-colors duration-200"
+                        size="sm"
+                        onClick={() => window.open("https://docs.google.com/spreadsheets/d/1ImZkz90Ymb0wUbY2KV2fLV2pN6Jy8IH0cbhds4WDN7o/edit?gid=0#gid=0", "_blank")}
+                      >
+                        <ExternalLink className="mr-2 h-3 w-3 sm:h-4 sm:w-4" />
+                        View Assessment Spreadsheet
+                      </Button>
+                    </motion.div>
                   </div>
                 </CardContent>
               </Card>
             </motion.div>
           </div>
 
-          <Tabs defaultValue="table" className="w-full">
-            <TabsList className="grid w-full max-w-xs sm:max-w-md grid-cols-2 h-9 sm:h-10">
-              <TabsTrigger value="table" className="text-xs sm:text-sm">
-                Student Data
-              </TabsTrigger>
-              <TabsTrigger value="recommendations" className="text-xs sm:text-sm">
-                Recommendations
-              </TabsTrigger>
-            </TabsList>
-            <TabsContent value="table" className="mt-4">
-              <Card>
-                <CardHeader className="pb-4">
-                  <CardTitle className="text-base sm:text-lg">Student Performance Data</CardTitle>
-                  <CardDescription className="text-xs sm:text-sm">
-                    Detailed view of all student scores and performance metrics
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="pt-0">
-                  <StudentTable />
-                </CardContent>
-                <CardFooter className="flex flex-col sm:flex-row gap-2 sm:gap-0 sm:justify-between pt-4">
-                 
-                  <Button
-                    size="sm"
-                    className="w-full sm:w-auto text-xs sm:text-sm"
-                    onClick={() => window.open("https://docs.google.com/spreadsheets/d/your-spreadsheet-id", "_blank")}
-                  >
-                    View Full Spreadsheet
-                    <ArrowUpRight className="ml-2 h-3 w-3 sm:h-4 sm:w-4" />
-                  </Button>
-                </CardFooter>
-              </Card>
-            </TabsContent>
-            <TabsContent value="recommendations" className="mt-4">
-              <RecommendationCard />
-            </TabsContent>
-          </Tabs>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.7, duration: 0.5 }}
+          >
+            <Tabs defaultValue="table" className="w-full">
+              <TabsList className="grid w-full max-w-xs sm:max-w-md grid-cols-2 h-9 sm:h-10">
+                <TabsTrigger 
+                  value="table" 
+                  className="text-xs sm:text-sm hover:bg-purple-50 transition-colors duration-200"
+                >
+                  Student Data
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="recommendations" 
+                  className="text-xs sm:text-sm hover:bg-purple-50 transition-colors duration-200"
+                >
+                  Recommendations
+                </TabsTrigger>
+              </TabsList>
+              <TabsContent value="table" className="mt-4">
+                <motion.div
+                  whileHover={{ 
+                    boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
+                  }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <Card className="hover:border-purple-200 transition-all duration-300">
+                    <CardHeader className="pb-4">
+                      <CardTitle className="text-base sm:text-lg">Student Performance Data</CardTitle>
+                      <CardDescription className="text-xs sm:text-sm">
+                        Detailed view of all student scores and performance metrics
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="pt-0">
+                      <StudentTable />
+                    </CardContent>
+                    <CardFooter className="flex flex-col sm:flex-row gap-2 sm:gap-0 sm:justify-between pt-4">
+                      <motion.div
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <Button
+                          size="sm"
+                          className="w-full sm:w-auto text-xs sm:text-sm hover:bg-purple-600 transition-colors duration-200"
+                          onClick={() => window.open("https://docs.google.com/spreadsheets/d/1ImZkz90Ymb0wUbY2KV2fLV2pN6Jy8IH0cbhds4WDN7o/edit?gid=0#gid=0", "_blank")}
+                        >
+                          View Full Spreadsheet
+                          <ArrowUpRight className="ml-2 h-3 w-3 sm:h-4 sm:w-4" />
+                        </Button>
+                      </motion.div>
+                    </CardFooter>
+                  </Card>
+                </motion.div>
+              </TabsContent>
+              <TabsContent value="recommendations" className="mt-4">
+                <motion.div
+                  whileHover={{ 
+                    boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
+                  }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <RecommendationCard />
+                </motion.div>
+              </TabsContent>
+            </Tabs>
+          </motion.div>
         </motion.div>
       </main>
 

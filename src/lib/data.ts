@@ -46,4 +46,5 @@ export const studentData = [
   { reg: 220101120228, aptitude: 130, coding: 0 },
   { reg: 220101130038, aptitude: 135, coding: 0 },
   { reg: 220101130037, aptitude: 155, coding: 0 },
+  { reg: 220101120223, aptitude: 150, coding: 0 },
 ]
